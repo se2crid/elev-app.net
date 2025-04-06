@@ -1,0 +1,18 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Sync certificates"
+  lane :sync_certs do
+    match(type: "development", readonly: true)
+  end
+
+  desc "Build app"
+  lane :build do
+    sync_certs
+    build_ios_app(
+      project: "Skolplattformen.ElevApp.csproj",
+      configuration: "Release",
+      export_method: "development"
+    )
+  end
+end
